@@ -10,3 +10,11 @@ Ciao ragazzi, è ora di mettere alla prova le vostre conoscenze iniziando a cost
 - Inserire i dati di connessione al database come variabili d’ambiente
 - Inserire un middleware per le rotte inesistenti
 - Inserire un middleware per la gestione errori
+
+
+API dei Films
+
+method: GET
+/films
+
+Restituisce array di films
