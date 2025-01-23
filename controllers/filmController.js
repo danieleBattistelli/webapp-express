@@ -18,16 +18,16 @@ const index = (req, res, next) => {
   const show = (req, res, next) => {
     const id = req.params.id;
   
-    const sql = "SELECT * FROM bookss WHERE id = ?";
+    const sql = "SELECT * FROM `movies` WHERE id = ?";
     const sqlReviews = `
       SELECT reviews.* 
       FROM reviews
-      JOIN books
-      ON books.id = reviews.book_id
-      WHERE books.id = ?
+      JOIN movies
+      ON movies.id = reviews.movie_id
+      WHERE movies.id = ?
     `;
   
-    dbConnection.query(sql, [id], (err, results) => {
+    connection.query(sql, [id], (err, results) => {
       if (err) {
         return next(new Error("Errore interno del server"));
       }
@@ -36,12 +36,13 @@ const index = (req, res, next) => {
       if (results.length === 0) {
         return res.status(404).json({
           status: "fail",
-          message: "Libro non trovato",
+          message: "film non trovato",
         });
       }
   
-      // Nel caso tutto ok, prendiamo anche le recensioni collegati a questo libro
-      dbConnection.query(sqlReviews, [id], (err, reviews) => {
+      // Nel caso tutto ok, prendiamo anche le recensioni collegati 
+      // a questo film
+      connection.query(sqlReviews, [id], (err, reviews) => {
         if (err) {
           return next(new Error("Errore interno del server"));
         }
